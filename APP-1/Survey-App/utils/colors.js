@@ -1,0 +1,46 @@
+const colors = {
+  primary: '#1D4ED8',
+  primaryDark: '#1E3A8A',
+  primaryLight: '#DBEAFE',
+  secondary: '#0F766E',
+  secondaryLight: '#CCFBF1',
+  accent: '#F59E0B',
+  success: '#16A34A',
+  warning: '#F97316',
+  danger: '#DC2626',
+  info: '#0284C7',
+  white: '#FFFFFF',
+  black: '#111827',
+  transparent: 'transparent',
+  light: {
+    background: '#F8FAFC',
+    surface: '#FFFFFF',
+    surfaceMuted: '#F1F5F9',
+    text: '#0F172A',
+    textSecondary: '#64748B',
+    border: '#E2E8F0',
+    overlay: 'rgba(15, 23, 42, 0.45)',
+  },
+  dark: {
+    background: '#0F172A',
+    surface: '#1E293B',
+    surfaceMuted: '#334155',
+    text: '#F8FAFC',
+    textSecondary: '#CBD5E1',
+    border: '#475569',
+    overlay: 'rgba(0, 0, 0, 0.65)',
+  },
+  priority: {
+    low: '#16A34A',
+    medium: '#F59E0B',
+    high: '#DC2626',
+  },
+  gradients: {
+    primary: ['#2563EB', '#1E40AF'],
+    teal: ['#14B8A6', '#0F766E'],
+    violet: ['#8B5CF6', '#5B21B6'],
+    sunset: ['#F97316', '#EA580C'],
+  },
+};
+
+export default colors;
