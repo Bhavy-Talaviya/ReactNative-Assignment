@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Drawer } from 'expo-router/drawer';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useProfile } from '../../hooks/useProfile';
+import AppImage from '../../components/AppImage';
 
 function CustomDrawerContent(props) {
   const { profile } = useProfile();
@@ -13,12 +14,7 @@ function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerContent}>
       {/* Drawer Header */}
       <View style={styles.headerContainer}>
-        <Image
-          source={{
-            uri: profile?.avatar,
-          }}
-          style={styles.profileImage}
-        />
+        <AppImage uri={profile?.avatar} style={styles.profileImage} />
         <Text style={styles.profileName}>{profile?.name || "Student"}</Text>
         <Text style={styles.profileEmail}>{profile?.email || "student@example.com"}</Text>
       </View>

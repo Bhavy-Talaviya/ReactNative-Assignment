@@ -5,10 +5,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-  Image,
 } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
+import AppImage from "../../../components/AppImage";
+import { persistImageUri } from "../../../services/imageService";
 
 export default function CameraScreen() {
   const cameraRef = useRef(null);
@@ -52,7 +53,8 @@ export default function CameraScreen() {
         quality: 1,
       });
 
-      setPhoto(picture.uri);
+      const savedUri = await persistImageUri(picture.uri);
+      setPhoto(savedUri);
     } catch (error) {
       console.log(error);
     }
@@ -61,10 +63,7 @@ export default function CameraScreen() {
   if (photo) {
     return (
       <View style={styles.previewContainer}>
-        <Image
-          source={{ uri: photo }}
-          style={styles.previewImage}
-        />
+        <AppImage uri={photo} style={styles.previewImage} contentFit="cover" placeholderIcon="camera" />
 
         <TouchableOpacity
           style={styles.retakeButton}

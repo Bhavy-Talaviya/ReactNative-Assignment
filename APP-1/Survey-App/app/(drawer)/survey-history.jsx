@@ -4,9 +4,10 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
 } from "react-native";
 import { Stack } from "expo-router";
+
+import AppImage from "../../components/AppImage";
 
 import { useSurvey } from "../../hooks/useSurvey";
 
@@ -73,11 +74,7 @@ function SurveyCard({ item, index }) {
         <View style={styles.photoContainer}>
           <Text style={styles.photoTitle}>Photo</Text>
 
-          <Image
-            source={{ uri: item.photo }}
-            style={styles.photo}
-            resizeMode="cover"
-          />
+          <AppImage uri={item.photo} style={styles.photo} contentFit="cover" placeholderIcon="camera" />
         </View>
       ) : null}
     </View>

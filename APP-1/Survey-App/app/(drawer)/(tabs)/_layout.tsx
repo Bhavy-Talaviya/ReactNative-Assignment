@@ -17,14 +17,6 @@ export default function TabLayout() {
           <DrawerToggleButton tintColor="#111827" />
         ),
         tabBarButton: HapticTab,
-        tabBarStyle: {
-          height: 60,
-          paddingBottom: 8,
-          paddingTop: 8,
-          backgroundColor: '#ffffff',
-          borderTopWidth: 1,
-          borderTopColor: '#E5E7EB',
-        },
       }}>
       <Tabs.Screen
         name="index"

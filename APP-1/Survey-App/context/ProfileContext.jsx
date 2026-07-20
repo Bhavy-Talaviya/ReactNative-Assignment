@@ -33,11 +33,16 @@ export function ProfileProvider({ children }) {
   }, []);
 
   const updateProfile = useCallback(async (updates) => {
-    const nextProfile = { ...profile, ...updates };
-    setProfileState(nextProfile);
+    let nextProfile = null;
+
+    setProfileState((current) => {
+      nextProfile = { ...current, ...updates };
+      return nextProfile;
+    });
+
     await saveItem(PROFILE_STORAGE_KEY, nextProfile);
     return nextProfile;
-  }, [profile]);
+  }, []);
 
   const value = useMemo(
     () => ({

@@ -4,11 +4,12 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Image,
   TouchableOpacity,
 } from "react-native";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+
+import AppImage from "../../../components/AppImage";
 
 import { useSurvey } from "../../../hooks/useSurvey";
 import { useProfile } from "../../../hooks/useProfile";
@@ -99,18 +100,12 @@ export default function DashboardScreen() {
             <Text style={styles.welcomeLabel}>Welcome back,</Text>
             <Text style={styles.welcomeName}>{profile?.name || "Student"} 👋</Text>
           </View>
-          <Image
-            source={{ uri: profile?.avatar }}
-            style={styles.welcomeAvatar}
-          />
+          <AppImage uri={profile?.avatar} style={styles.welcomeAvatar} />
         </View>
 
         {/* Student Info Card */}
         <View style={styles.studentCard}>
-          <Image
-            source={{ uri: profile?.avatar }}
-            style={styles.studentAvatar}
-          />
+          <AppImage uri={profile?.avatar} style={styles.studentAvatar} />
           <View style={styles.studentInfo}>
             <InfoRow
               icon="school-outline"

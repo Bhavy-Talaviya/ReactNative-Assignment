@@ -1,15 +1,23 @@
-import React, { useState } from "react";
-import { Alert, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Stack } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
+import AppImage from "../../../components/AppImage";
 import { useProfile } from "../../../hooks/useProfile";
+import { persistImageUri } from "../../../services/imageService";
 
 export default function ProfileScreen() {
   const { profile, updateProfile, isLoadingProfile } = useProfile();
   const [draft, setDraft] = useState(profile);
   const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    if (!isEditing) {
+      setDraft(profile);
+    }
+  }, [profile, isEditing]);
 
   const handleEditPress = () => {
     setDraft(profile);
@@ -33,7 +41,8 @@ export default function ProfileScreen() {
     });
 
     if (!result.canceled) {
-      updateDraft("avatar", result.assets[0].uri);
+      const savedUri = await persistImageUri(result.assets[0].uri);
+      updateDraft("avatar", savedUri);
     }
   };
 
@@ -51,7 +60,8 @@ export default function ProfileScreen() {
         phone: draft.phone.trim(),
         location: draft.location.trim(),
       };
-      await updateProfile(nextProfile);
+      const savedProfile = await updateProfile(nextProfile);
+      setDraft(savedProfile);
       setIsEditing(false);
       Alert.alert("Profile updated", "Your changes have been saved.");
     } catch {
@@ -72,7 +82,7 @@ export default function ProfileScreen() {
     <>
       <Stack.Screen options={{ title: "Profile" }} />
       <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-        <Image source={{ uri: isEditing ? draft.avatar : profile.avatar }} style={styles.avatar} />
+        <AppImage uri={isEditing ? draft.avatar : profile.avatar} style={styles.avatar} />
 
         {isEditing ? (
           <View style={styles.form}>

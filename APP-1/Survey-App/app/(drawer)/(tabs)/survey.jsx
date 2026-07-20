@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Stack } from "expo-router";
 import * as ImagePicker from 'expo-image-picker';
 
+import AppImage from "../../../components/AppImage";
+
 import { useSurvey } from "../../../hooks/useSurvey";
+import { persistImageUri } from "../../../services/imageService";
 
 export default function SurveyScreen() {
   const { addSurvey } = useSurvey();
@@ -30,7 +33,8 @@ export default function SurveyScreen() {
     });
 
     if (!result.canceled) {
-      setPhoto(result.assets[0].uri);
+      const savedUri = await persistImageUri(result.assets[0].uri);
+      setPhoto(savedUri);
     }
   };
 
@@ -80,7 +84,7 @@ export default function SurveyScreen() {
         <View style={styles.photoContainer}>
           {photo ? (
             <View style={styles.photoPreviewContainer}>
-              <Image source={{ uri: photo }} style={styles.photoPreview} />
+              <AppImage uri={photo} style={styles.photoPreview} placeholderIcon="camera" />
               <TouchableOpacity style={styles.retakeButton} onPress={handleTakePhoto}>
                 <Text style={styles.retakeText}>Retake Photo</Text>
               </TouchableOpacity>
